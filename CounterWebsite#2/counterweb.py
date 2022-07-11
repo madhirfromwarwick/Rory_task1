@@ -15,7 +15,10 @@ api = Api(app)
 #create database of count
 global rick_counts 
 rick_counts = {"rory": {"num_rr": 1000},
-               "mahir": {"num_rr": 0}}
+               "mahir": {"num_rr": 0},
+               "oliwia": {"num_rr": 0},
+               "anna": {"num_rr": 0},
+               "shams": {"num_rr": 0}}
 
 #make a resource for count
 class Counter(Resource):
@@ -24,12 +27,13 @@ class Counter(Resource):
     
 class Increment(Resource):
     def post(self,name):
-        if name == "rory":
-            # global rick_counts
-            rick_counts["rory"]["num_rr"] = rick_counts["rory"]["num_rr"] + 1
-        elif name == "mahir":
+        if name == "mahir":
             # global rick_counts
             rick_counts["mahir"]["num_rr"] = rick_counts["mahir"]["num_rr"] - 1
+            
+        else:
+            # global rick_counts
+            rick_counts[name]["num_rr"] = rick_counts[name]["num_rr"] + 1
 
         return rick_counts[name]
 
@@ -39,4 +43,4 @@ api.add_resource(Increment, "/Increment/<string:name>")
 
 #run app
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
